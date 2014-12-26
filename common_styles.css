@@ -1,0 +1,259 @@
+  body {
+    min-width: 397px;
+    max-width: 397px;
+    min-height: 100px;
+    -height: 100%;
+    margin: 0px;
+    font-family: "Roboto";
+    font-weight: 100;
+    overflow-x: hidden;
+  }
+  #title_bar {
+  	background-color: rgba(218, 67, 54, 1);
+  	padding-right: 0px;
+  	padding-bottom: 0px;
+  	height: 2.25em;
+  	font-size: 12pt;
+  }
+  #options_button {
+  	float: right;
+  	width: 1.5em;
+  	height: 2.25em;
+  	margin-right: 0;
+  	margin-top: 0;
+  	padding: 0;
+  	background-image: url('images/options_button.png');
+  	background-size: contain;
+  }
+  #back_button {
+  	float: left;
+  	width: 1.75em;
+  	height: 2.25em;
+  	margin-right: 0;
+  	margin-top: 0;
+  	padding: 0;
+  	background-image: url('images/back_button.png');
+  	background-size: contain;
+  }
+  #create_button {
+  	float: right;
+  	width: 1.75em;
+  	height: 2.25em;
+  	margin-right: 0;
+  	margin-top: 0;
+  	padding: 0;
+  	background-image: url('images/create_button.png');
+  	background-size: contain;
+  }
+  #search_button {
+  	float: right;
+  	width: 2.25em;
+  	height: 2.25em;
+  	margin-right: 0;
+  	margin-top: 0;
+  	padding: 0;
+  	background-image: url('images/search_button.png');
+  	background-size: contain;
+  }
+  #list_outer {
+  	width: 100%;
+  	-height: 300px;
+  	background-image: url('images/QueueView-list_outer-background.png');
+  	background-repeat: no-repeat;
+  	background-position: center top;
+  }
+  div.queue_link {
+  	height: 5em;
+  	font-size: 6pt;
+  	font-family: "Roboto";
+  	white-space: nowrap;
+  	overflow: hidden;
+  	cursor: pointer;
+  	border-top: 0px;
+  	border-left: 0;
+  	border-right: 0;
+  	border-bottom: 1px;
+  	border-color: rgba(0, 0, 0, 0.1);
+  	border-style: solid;
+  }
+  div.queue_link:hover {
+  	background-color: rgba(176, 176, 160, 0.3);
+  }
+  span.queue_link_title {
+  	display: inline-block;
+  	white-space: nowrap;
+  	overflow: hidden;
+  	font-size: 11pt;
+  	font-weight: normal;
+  	padding: 0;
+  	margin-top: 0.5em;
+  }
+  span.queue_link_other {
+  	background-image: url('images/states/256/blue.png');
+  	background-size: contain;
+  	background-repeat: no-repeat;
+  	background-position: center;
+  	display: inline-block;
+  	float: left;
+  	height: 2em;
+  	width: 2em;
+  	text-align: center;
+  	margin-top: -0.3em;
+  	padding-top: 0.6em;
+  	font-size: 16pt;
+  	font-family: "Roboto";
+  	font-weight: 100;
+  	color: #FFFFFF;
+  }
+  span.queue_link_my_tickets {
+  	background-image: url('images/states/256/my_tickets.png');
+  	background-size: contain;
+  	background-repeat: no-repeat;
+  	background-position: center;
+  	display: inline-block;
+  	float: left;
+  	height: 2em;
+  	width: 2em;
+  	text-align: center;
+  	margin-top: -0.3em;
+  	padding-top: 0.6em;
+  	font-size: 16pt;
+  	font-family: "Roboto";
+  	font-weight: 100;
+  	color: #FFFFFF;
+  }
+  div.ticket_link {
+  	height: 6em;
+  	font-size: 6pt;
+  	font-family: "Roboto";
+  	white-space: nowrap;
+  	overflow: hidden;
+  	cursor: pointer;
+  	border-top: 0px;
+  	border-left: 0;
+  	border-right: 0;
+  	border-bottom: 1px;
+  	border-color: rgba(0, 0, 0, 0.1);
+  	border-style: solid;
+  }
+  div.ticket_link:hover {
+  	background-color: rgba(176, 176, 160, 0.3);
+  }
+  span.ticket_link_state_open {
+  	background-image: url('images/states/256/green.png');
+  	background-size: contain;
+  	display: inline-block;
+  	float: left;
+  	height: 2em;
+  	width: 2em;
+  	text-align: center;
+  	margin-top: -0.1em;
+  	padding-top: 0.6em;
+  	font-size: 16pt;
+  	font-family: "Roboto";
+  	font-weight: 100;
+  	color: #FFFFFF;
+  	background-repeat: no-repeat;
+  	background-position: center;
+  }
+  span.ticket_link_state_pending {
+  	background-image: url('images/states/256/orange.png');
+  	background-size: contain;
+  	display: inline-block;
+  	float: left;
+  	height: 2em;
+  	width: 2em;
+  	text-align: center;
+  	margin-top: -0.1em;
+  	padding-top: 0.6em;
+  	font-size: 16pt;
+  	font-family: "Roboto";
+  	font-weight: 100;
+  	color: #FFFFFF;
+  	background-repeat: no-repeat;
+  	background-position: center;
+  }
+  span.ticket_link_title {
+  	display: inline-block;
+  	white-space: nowrap;
+  	overflow: hidden;
+  	font-size: 11pt;
+  	font-weight: 100;
+  	color: #333333;
+  	padding: 0;
+  	margin: 0;
+  }
+  span.ticket_link_number {
+  	display: inline-block;
+  	white-space: nowrap;
+  	overflow: hidden;
+  	font-size: 11pt;
+  	font-weight: normal;
+  	padding: 0;
+  	margin: 0;
+  }
+  span.window_title{
+  	vertical-align: text-bottom;
+  	font-size: 1em;
+  	font-family: "Roboto";
+  	font-weight: normal;
+  	color: rgba(255, 255, 255, 1);
+  	margin: 0.4em;
+  	display: inline-block;
+  	cursor: pointer;
+  }
+  span.queue_button {
+  	visibility: hidden;
+  	background-color: rgba(255, 255, 255, 0.5);
+  	padding: 1px;
+  	cursor: pointer;
+  }
+  span.queue_button:hover {
+  	visibility: hidden;
+  	background-color: rgba(255, 255, 255, 0.7);
+  	padding: 1px;
+  	cursor: pointer;
+  }
+  span.queue_button_unused {
+  	visibility: hidden;
+  }
+  
+  select.home_queue, option {
+  	width: 10px;
+  	font-size: 14pt;
+  	-font-family: "Roboto";
+  }
+  
+  option {
+  	width: 10px;
+  	font-size: 14pt;
+  }
+  
+  .loading_invisible {
+  	display: none;
+  }
+  .loading_visible {
+	-webkit-animation:spin 2s linear infinite;
+	-moz-animation:spin 2s linear infinite;
+	animation:spin 2s linear infinite;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	display: block;
+	width: 100px;
+	opacity: 0.4;
+  }
+  @-moz-keyframes spin { 100% { 
+	  -moz-transform:rotate(360deg); 
+  	}
+  }
+  @-webkit-keyframes spin { 100% { 
+	  -webkit-transform:rotate(360deg); 
+  	  }
+  }
+  @keyframes spin { 100% {
+  	  -webkit-transform:rotate(360deg);
+	  transform:rotate(360deg);
+	  }
+  }

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "OTRS",
+  "description": "This extension gives quick access to OTRS tickets either by queue on by search result.",
+  "version": "0.1",
+
+  "permissions": [
+    "http://service.mach.com.au/",
+    "storage"
+  ],
+  "icons": { "16": "images/OTRSIcon_16.png",
+  			 "32": "images/OTRSIcon_32.png",
+  	         "48": "images/OTRSIcon_48.png",
+    	     "128": "images/OTRSIcon_128.png" },
+  "background" : {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_icon": "images/OTRSIcon_19.png",
+    "default_popup": "QueueView.html"
+  }
+}

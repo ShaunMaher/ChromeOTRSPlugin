@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+  <head>
+    <title>OTRS: Options</title>
+	<link rel="stylesheet" href="fonts/fonts.css" type="text/css" charset="utf-8" />
+  	<link rel="stylesheet" href="common_styles.css" type="text/css" charset="utf-8" />
+	<script src="jquery-2.1.1.js"></script>
+	<script src="jquery.soap/jquery.soap.js"></script>
+    <script src="Options.js"></script>
+  </head>
+  <body>
+  	<div id="title_bar">
+  		<span id="window_title" class="window_title">Settings</span>
+  		<span id="back_button">&nbsp;</span>
+  	</div>
+  	<form>
+  		<table width=100%>
+  			<tr>
+  				<td colspan=2>
+  					<b>General Settings</b>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					Enabled on startup:
+  				</td>
+  				<td>
+  					<input type="checkbox" id="EnableOnBrowserStartup" value="true"/>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2 align=right class="hint">
+  					If checked, this extension will connect to OTRS and start caching ticket metadata when the browser is started.  If not enabled caching will not begin until the tool bar button is clicked for the first time.
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					Resource usage:
+  				</td>
+  				<td>
+  					<select name="throttle_factor" id="throttle_factor">
+  						<option value="2000">Low</option>
+  						<option value="500">Medium</option>
+  						<option value="100">High</option>
+  					</select>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2>
+  					<b>OTRS Server Settings</b>
+  				</td>
+  			</tr>	
+  			<tr>
+  				<td>
+  					OTRS RPC URL:
+  				</td>
+  				<td>
+  					<input type=text id="OTRSRPCURL" name="OTRSRPCURL" value="">
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2 align=right class="hint">
+  					Example: <i>http://servicedesk.your.domain/otrs/rpc.pl</i>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					OTRS Index URL:
+  				</td>
+  				<td>
+  					<input type=text id="OTRSIndexURL" name="OTRSIndexURL" value=""><br/>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2 align=right class="hint">
+  					Example: <i>http://servicedesk.your.domain/otrs/index.pl</i>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					OTRS Version:
+  				</td>
+  				<td>
+  					<select name="OTRSVersion" id="OTRSVersion">
+  						<option value="3.0.x">3.0.x</option>
+  					</select>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					OTRS User Id:
+  				</td>
+  				<td>
+  					<input type=text id="OTRSUserId" name="OTRSUserId" value="">
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					OTRS Soap Username:
+  				</td>
+  				<td>
+  					<input type=text id="OTRSSoapUsername" name="OTRSSoapUsername" value="">
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					OTRS Soap Password:
+  				</td>
+  				<td>
+  					<input type=text id="OTRSSoapPassword" name="OTRSSoapPassword" value="">
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2>
+  					<b>Queue Settings</b>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					Home queue:
+  				</td>
+  				<td>
+  					<select id="home_queue">
+  						<option value="_my_tickets_">My Tickets</option>
+  					</select>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2>
+  					Other queues:
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2 id="other_queues">
+  					test
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2>
+  					<b>Tickets</b>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					Sort by:
+  				</td>
+  				<td>
+  					<select>
+  						<option>Age: oldest on top</option>
+  						<option>Age: newest on top</option>
+  						<option>Priority</option>
+  					</select>
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2>
+  					Include tickets in these states:
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2 id="select_states">
+  					test
+  				</td>
+  			</tr>
+  			<tr>
+  				<td colspan=2>
+  					<input type=button id="Save" value="Save">
+  					<input type=button id="Cancel" value="Cancel">
+  				</td>
+  			</tr>
+  		</table>
+  	</form>
+  </body>
+</html>
