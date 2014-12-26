@@ -27,6 +27,7 @@ otrs_client_default_settings["300"] = {
 	OTRSIndexURL: "http://servicedesk.your.domain/otrs/index.pl",
 	OTRSSoapUsername: "soap_user",
 	OTRSSoapPassword: "soap_pass",
+	OTRSUserId: 1
 };
 otrs_client_setting_hints["300"] = {
 	OTRSRPCURL: "Example: <i>http://servicedesk.your.domain/otrs/rpc.pl</i>",

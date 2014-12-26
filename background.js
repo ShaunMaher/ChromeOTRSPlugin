@@ -22,12 +22,7 @@ var browser_action_anim_frame = 0;
 var enabled = 0;
 var started = 0;
 var default_config = {
-	'OTRSUserId': 5,
 	'OTRSVersion': '300',
-	'OTRSSoapUsername': "soap_user",
-	'OTRSSoapPassword': "soap_pass",
-	'OTRSRPCURL': "http://servicedesk.your.domain/otrs/rpc.pl",
-	'OTRSIndexURL': "http://servicedesk.your.domain/otrs/index.pl",
 	'EnableOnBrowserStartup': 0,
 	'home_queue': "_my_tickets_",
 	'OTRSQueuesSelected': ["_my_tickets_"]
@@ -104,29 +99,21 @@ function StartExtension() {
 				console.log("background.js:StartExtension(): Error creating object called \"otrs_client_" + OTRSVersion + "\".  Created an \"otrs_client_300\" object instead.")
 				otrs = new window["otrs_client_300"]();
 			}
+			
+			// Merge the OTRS client's default config with the local default config
+			for (var item_name in otrs_client_default_settings[OTRSVersion]) {
+				default_config[item_name] = otrs_client_default_settings[OTRSVersion][item_name];
+			}
 
 			// Load the remaining settings
 			chrome.storage.sync.get(default_config, function(items) {
-				if (items.OTRSUserId) {
-					otrs.OTRSUserId = items.OTRSUserId;
+				// Set each item that the OTRS client is expecting to the value loaded
+				for (var item_name in otrs_client_default_settings[OTRSVersion]) {
+					if (items[item_name]) {
+						otrs[item_name] = items[item_name];
+					}
 				}
-				
-				if (items.OTRSSoapUsername) {
-					otrs.OTRSSoapUsername = items.OTRSSoapUsername;
-				}
-					
-				if (items.OTRSSoapPassword) {
-					otrs.OTRSSoapPassword = items.OTRSSoapPassword;
-				}
-				
-				if (items.OTRSRPCURL) {
-					otrs.OTRSRPCURL = items.OTRSRPCURL;
-				}
-				
-				if (items.OTRSIndexURL) {
-					otrs.OTRSIndexURL = items.OTRSIndexURL;
-				}
-				
+								
 				if (items.EnableOnBrowserStartup) {
 					enabled = items.EnableOnBrowserStartup;
 				}

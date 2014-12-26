@@ -121,24 +121,11 @@ function OnLoad() {
 		chrome.storage.sync.get(chrome.extension.getBackgroundPage().default_config, function(items) {
 			console.log(items);
 			
-			if (items.OTRSUserId) {
-				$("#OTRSUserId").val(items.OTRSUserId);
-			}
-			
-			if (items.OTRSSoapUsername) {
-				$("#OTRSSoapUsername").val(items.OTRSSoapUsername);
-			}
-				
-			if (items.OTRSSoapPassword) {
-				$("#OTRSSoapPassword").val(items.OTRSSoapPassword);
-			}
-			
-			if (items.OTRSRPCURL) {
-				$("#OTRSRPCURL").val(items.OTRSRPCURL);
-			}
-			
-			if (items.OTRSIndexURL) {
-				$("#OTRSIndexURL").val(items.OTRSIndexURL);
+			// Set each item that the OTRS client is expecting to the value loaded
+			for (var item_name in otrs_client_default_settings) {
+				if (items[item_name]) {
+					$("#" + item_name).val(items[item_name]);
+				}
 			}
 			
 			if (items.EnableOnBrowserStartup) {
