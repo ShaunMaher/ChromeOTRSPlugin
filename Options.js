@@ -16,6 +16,10 @@
 
 var queues_available = {};
 var states_available = {};
+var OTRSVersion = 300;
+var otrs_client_required_settings = {};
+var otrs_client_default_settings = {};
+var otrs_client_setting_hints = {};
 
 function ShortenQueueName(name) {
 	if (name.length > 30) {
@@ -31,6 +35,7 @@ function OnLoad() {
 	queues_available = chrome.extension.getBackgroundPage().otrs.queues_available;
 	states_available = chrome.extension.getBackgroundPage().otrs.states_available;
 	
+	// Add handlers to various buttons, etc.
 	$("#Save").click(function(event) {
 		Save();
 	});
@@ -74,47 +79,91 @@ function OnLoad() {
 	}
 	
 	// Populate all the form items with the saved values
-	chrome.storage.sync.get(chrome.extension.getBackgroundPage().default_config, function(items) {
-		console.log(items);
-		if (items.OTRSUserId) {
-			$("#OTRSUserId").val(items.OTRSUserId);
+	chrome.storage.sync.get({"OTRSVersion": OTRSVersion}, function(items) {
+		// Do things
+		if (chrome.extension.getBackgroundPage().otrs_client_required_settings[items.OTRSVersion]) {
+			console.log("Options.js:OnLoad(): Using configured OTRS version " + items.OTRSVersion);
+			otrs_client_required_settings = chrome.extension.getBackgroundPage().otrs_client_required_settings[items.OTRSVersion];
+			otrs_client_default_settings = chrome.extension.getBackgroundPage().otrs_client_default_settings[items.OTRSVersion];
+			otrs_client_setting_hints = chrome.extension.getBackgroundPage().otrs_client_setting_hints[items.OTRSVersion];
+		}
+		else {
+			console.log("Options.js:OnLoad(): otrs_client_required_settings array doesn't contain an index for OTRS version " + items.OTRSVersion);
+			otrs_client_required_settings = chrome.extension.getBackgroundPage().otrs_client_required_settings["300"];
+			otrs_client_default_settings = chrome.extension.getBackgroundPage().otrs_client_default_settings["300"];
+			otrs_client_setting_hints = chrome.extension.getBackgroundPage().otrs_client_setting_hints["300"];
 		}
 		
-		if (items.OTRSSoapUsername) {
-			$("#OTRSSoapUsername").val(items.OTRSSoapUsername);
-		}
+		for (var item_name in otrs_client_required_settings) {
+			console.log("Options.js:OnLoad(): New configuration option: " + item_name);
 			
-		if (items.OTRSSoapPassword) {
-			$("#OTRSSoapPassword").val(items.OTRSSoapPassword);
-		}
-		
-		if (items.OTRSRPCURL) {
-			$("#OTRSRPCURL").val(items.OTRSRPCURL);
-		}
-		
-		if (items.OTRSIndexURL) {
-			$("#OTRSIndexURL").val(items.OTRSIndexURL);
-		}
-		
-		if (items.EnableOnBrowserStartup) {
-			if (items.EnableOnBrowserStartup > 0) {
-				$("#EnableOnBrowserStartup").attr( "checked", true);
+			// Compose some new HTML for this client's settings
+			var new_html = "";
+			new_html += "<tr>";
+			new_html += "<td>" + otrs_client_required_settings[item_name][1] + "</td>";
+			if (otrs_client_required_settings[item_name][0] == "s") {
+				new_html += "<td><input type=text id=\"" + item_name + "\" name=\"" + item_name + "\" value=\"\"></td>";
 			}
+			new_html += "</tr>";
+			
+			// Add a row for the "hint" text
+			if (otrs_client_setting_hints[item_name]) {
+				new_html += "<tr>";
+	  			new_html += "<td colspan=2 align=right class=\"hint\">";
+	  			new_html += otrs_client_setting_hints[item_name];
+	  			new_html += "</td>";
+	  			new_html += "</tr>";
+	  		}
+			
+			$("#OTRSServerSettings").after(new_html);
 		}
 		
-		if (items.OTRSHomeQueue) {
-			// TODO
-		}
-		
-		if (items.OTRSQueuesSelected) {
-			console.log(items.OTRSQueuesSelected);
-			for (queue_id in queues_available) {
-				console.log("Checking OTRSQueuesSelected for " + queues_available[queue_id]);
-				if (items.OTRSQueuesSelected.indexOf(queues_available[queue_id]) != -1) {
-					$("#select_queue_" + queue_id).attr( "checked", true);
+		chrome.storage.sync.get(chrome.extension.getBackgroundPage().default_config, function(items) {
+			console.log(items);
+			
+			if (items.OTRSUserId) {
+				$("#OTRSUserId").val(items.OTRSUserId);
+			}
+			
+			if (items.OTRSSoapUsername) {
+				$("#OTRSSoapUsername").val(items.OTRSSoapUsername);
+			}
+				
+			if (items.OTRSSoapPassword) {
+				$("#OTRSSoapPassword").val(items.OTRSSoapPassword);
+			}
+			
+			if (items.OTRSRPCURL) {
+				$("#OTRSRPCURL").val(items.OTRSRPCURL);
+			}
+			
+			if (items.OTRSIndexURL) {
+				$("#OTRSIndexURL").val(items.OTRSIndexURL);
+			}
+			
+			if (items.EnableOnBrowserStartup) {
+				if (items.EnableOnBrowserStartup > 0) {
+					$("#EnableOnBrowserStartup").attr( "checked", true);
 				}
 			}
-		}
+			
+			if (items.OTRSHomeQueue) {
+				//TODO
+			}
+			
+			if (items.OTRSVersion) {
+				//TODO
+			}
+			
+			if (items.OTRSQueuesSelected) {
+				console.log(items.OTRSQueuesSelected);
+				for (queue_id in queues_available) {
+					if (items.OTRSQueuesSelected.indexOf(queues_available[queue_id]) != -1) {
+						$("#select_queue_" + queue_id).attr( "checked", true);
+					}
+				}
+			}
+		});
 	});
 }
 
@@ -135,6 +184,7 @@ function Save() {
 		}
 	}
 	
+	// Save settings to Chrome's store
 	chrome.storage.sync.set({
 		OTRSVersion: $("#OTRSVersion").val(),
 		OTRSUserId: $("#OTRSUserId").val(),

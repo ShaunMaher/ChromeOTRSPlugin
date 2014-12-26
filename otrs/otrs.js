@@ -16,6 +16,8 @@
 
 var available_otrs_client_versions = {};
 var otrs_client_required_settings = {};
+var otrs_client_default_settings = {};
+var otrs_client_setting_hints = {};
 
 function otrs_ticket (ticket_id) {
 	this.ticket_id = ticket_id;

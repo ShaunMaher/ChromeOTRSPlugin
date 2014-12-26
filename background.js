@@ -23,7 +23,7 @@ var enabled = 0;
 var started = 0;
 var default_config = {
 	'OTRSUserId': 5,
-	'OTRSVersion': '3.0.x',
+	'OTRSVersion': '300',
 	'OTRSSoapUsername': "soap_user",
 	'OTRSSoapPassword': "soap_pass",
 	'OTRSRPCURL': "http://servicedesk.your.domain/otrs/rpc.pl",
@@ -104,7 +104,8 @@ function StartExtension() {
 				console.log("background.js:StartExtension(): Error creating object called \"otrs_client_" + OTRSVersion + "\".  Created an \"otrs_client_300\" object instead.")
 				otrs = new window["otrs_client_300"]();
 			}
-		
+
+			// Load the remaining settings
 			chrome.storage.sync.get(default_config, function(items) {
 				if (items.OTRSUserId) {
 					otrs.OTRSUserId = items.OTRSUserId;

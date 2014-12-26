@@ -16,11 +16,21 @@
 
 available_otrs_client_versions["300"] = "3.0.x";
 otrs_client_required_settings["300"] = {
-	OTRSRPCURL: "OTRS RPC URL",
-	OTRSIndexURL: "OTRS Index URL",
-	OTRSSoapUsername: "",
-	OTRSSoapPassword: "",
-	OTRSUserId: ""
+	OTRSRPCURL: ["s", "OTRS RPC URL"],
+	OTRSIndexURL: ["s", "OTRS Index URL"],
+	OTRSSoapUsername: ["s", "OTRS SOAP Username"],
+	OTRSSoapPassword: ["s", "OTRS SOAP Password"],
+	OTRSUserId: ["s", "OTRS User Id"]
+};
+otrs_client_default_settings["300"] = {
+	OTRSRPCURL: "http://servicedesk.your.domain/otrs/rpc.pl",
+	OTRSIndexURL: "http://servicedesk.your.domain/otrs/index.pl",
+	OTRSSoapUsername: "soap_user",
+	OTRSSoapPassword: "soap_pass",
+};
+otrs_client_setting_hints["300"] = {
+	OTRSRPCURL: "Example: <i>http://servicedesk.your.domain/otrs/rpc.pl</i>",
+	OTRSIndexURL: "Example: <i>http://servicedesk.your.domain/otrs/index.pl</i>",
 };
 
 function otrs_client_300 () {
@@ -102,7 +112,7 @@ function otrs_client_300 () {
 		
 		//Create a new otrs_queue object if one doesn't already exist
 		if (this.otrs_queues[queue_name] === undefined) {
-			console.log("otrs_soap_client_300.get_queuetickets(" + queue_name + "): New otrs_queue object created for '" + queue_name + "'.");
+			console.log("otrs_client_300.get_queuetickets(" + queue_name + "): New otrs_queue object created for '" + queue_name + "'.");
 			this.otrs_queues[queue_name] = new otrs_queue(queue_name);
 		}
 		
@@ -136,12 +146,12 @@ function otrs_client_300 () {
 		
 		var callback_success = function(xml_response, context) {
 			var new_ticket_ids = [];
-			console.log("otrs_soap_client_300.get_queuetickets(" + context.queue_name + "): Ticket Count: " + xml_response.getElementsByTagName("DispatchResponse")[0].childNodes.length);
+			console.log("otrs_client_300.get_queuetickets(" + context.queue_name + "): Ticket Count: " + xml_response.getElementsByTagName("DispatchResponse")[0].childNodes.length);
 			for (var index = 0; index < xml_response.getElementsByTagName("DispatchResponse")[0].childNodes.length; index++) {
 				new_ticket_ids.push(xml_response.getElementsByTagName("DispatchResponse")[0].childNodes[index].textContent);
 			}
 			if (context.self.otrs_queues[context.queue_name] === undefined) {
-				console.log("otrs_soap_client_300.get_queuetickets(" + context.queue_name + "): Error: otrs_queues[" + context.queue_name + "] is undefined.");
+				console.log("otrs_client_300.get_queuetickets(" + context.queue_name + "): Error: otrs_queues[" + context.queue_name + "] is undefined.");
 			}
 			else {
 				//Update the otrs_queue object with the new list of ticket ids (it will handle removing the old).

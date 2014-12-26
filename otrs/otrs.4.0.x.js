@@ -22,6 +22,16 @@ otrs_client_required_settings["400"] = {
 	OTRSSoapPassword: "",
 	OTRSUserId: ""
 };
+otrs_client_default_settings["400"] = {
+	OTRSRPCURL: "http://servicedesk.your.domain/otrs/rpc.pl",
+	OTRSIndexURL: "http://servicedesk.your.domain/otrs/index.pl",
+	OTRSSoapUsername: "soap_user",
+	OTRSSoapPassword: "soap_pass",
+};
+otrs_client_setting_hints["400"] = {
+	OTRSRPCURL: "Example: <i>http://servicedesk.your.domain/otrs/rpc.pl</i>",
+	OTRSIndexURL: "Example: <i>http://servicedesk.your.domain/otrs/index.pl</i>",
+};
 
 function otrs_client_400 () {
 	this.throttle_factor = 500;
