@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!DOCTYPE PRJ SYSTEM "ChromeOTRSPlugin.N53SV.shaun.dtd">
+<PRJ>
+  <Folder Name="/home/shaun/Documents/ChromeOTRSPlugin/">
+    <Expand>1</Expand>
+  </Folder>
+  <Project_Information>
+    <Working_Time>215</Working_Time>
+    <Project_Start>0D000000040000000C0000001A0000000B00000072000000050000006701000000000000FF7F00000000000000000000F0C4BD040000000014</Project_Start>
+  </Project_Information>
+  <Active_Settings>
+    <Active_File_Display_Mode>-1</Active_File_Display_Mode>
+    <Active_File>/home/shaun/Documents/ChromeOTRSPlugin/otrs/otrs.js</Active_File>
+  </Active_Settings>
+  <Open_Files>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/manifest.json</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/background.js</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/LICENSE</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/Options.html</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/otrs/otrs.js</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/otrs/otrs.3.0.x.js</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/otrs/otrs.4.0.x.js</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/Options.js</File>
+    <File>/home/shaun/Documents/ChromeOTRSPlugin/QueueView.js</File>
+  </Open_Files>
+</PRJ>

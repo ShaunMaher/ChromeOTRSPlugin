@@ -104,7 +104,6 @@ function OnLoad() {
 			console.log("chrome.storage.sync.get(home_queue): returned no data.");
 		}
 	});
-	
 }
 
 function list_queues(current_queue_name) {
