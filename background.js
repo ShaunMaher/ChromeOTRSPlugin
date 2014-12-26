@@ -14,7 +14,8 @@
    limitations under the License.
 */
 
-var otrs = new otrs_soap_client_300();
+//var otrs = new otrs_client_300();
+var otrs = new Object;
 var RefreshCache_timeout = 0;
 var browser_action_anim_timeout = 0;
 var browser_action_anim_frame = 0;
@@ -83,46 +84,64 @@ chrome.runtime.onStartup.addListener(function() {
 function StartExtension() {
 	if (started < 1) {
 		console.log("background.js:StartExtension(): Extension startup triggered.");
-		var OTRSVersion = "3.0.x";
+		var OTRSVersion = "300";
 		
-		otrs.queues_selected = ["Triage", "Delivery::Service Desk"];
-		
-		chrome.storage.sync.get(default_config, function(items) {
-			if (items.OTRSUserId) {
-				otrs.OTRSUserId = items.OTRSUserId;
+		// The first thing we need to know, before any other settings will make sense, the what OTRS version we are to use
+		chrome.storage.sync.get({"OTRSVersion": OTRSVersion}, function(items) {
+			if (items.OTRSVersion) {
+				console.log("background.js:StartExtension(): Using configured OTRS version " + items.OTRSVersion);
+				OTRSVersion = items.OTRSVersion;
+			}
+			else {
+				console.log("background.js:StartExtension(): Using default OTRS version " + OTRSVersion);
 			}
 			
-			if (items.OTRSSoapUsername) {
-				otrs.OTRSSoapUsername = items.OTRSSoapUsername;
+			// Create the otrs object based on the otrs version
+			try {
+				otrs = new window["otrs_client_" + OTRSVersion]();
 			}
+			catch (err) {
+				console.log("background.js:StartExtension(): Error creating object called \"otrs_client_" + OTRSVersion + "\".  Created an \"otrs_client_300\" object instead.")
+				otrs = new window["otrs_client_300"]();
+			}
+		
+			chrome.storage.sync.get(default_config, function(items) {
+				if (items.OTRSUserId) {
+					otrs.OTRSUserId = items.OTRSUserId;
+				}
 				
-			if (items.OTRSSoapPassword) {
-				otrs.OTRSSoapPassword = items.OTRSSoapPassword;
-			}
-			
-			if (items.OTRSRPCURL) {
-				otrs.OTRSRPCURL = items.OTRSRPCURL;
-			}
-			
-			if (items.OTRSIndexURL) {
-				otrs.OTRSIndexURL = items.OTRSIndexURL;
-			}
-			
-			if (items.EnableOnBrowserStartup) {
-				enabled = items.EnableOnBrowserStartup;
-			}
-			
-			if (items.OTRSQueuesSelected) {
-				console.log("queues selected: ");
-				console.log(items.OTRSQueuesSelected);
-				otrs.queues_selected = items.OTRSQueuesSelected;
-			}
-			
-			if (items.OTRSHomeQueue) {
-				otrs.queues_selected.push(items.OTRSHomeQueue);
-			}
-			
-			OnSettingsLoaded();
+				if (items.OTRSSoapUsername) {
+					otrs.OTRSSoapUsername = items.OTRSSoapUsername;
+				}
+					
+				if (items.OTRSSoapPassword) {
+					otrs.OTRSSoapPassword = items.OTRSSoapPassword;
+				}
+				
+				if (items.OTRSRPCURL) {
+					otrs.OTRSRPCURL = items.OTRSRPCURL;
+				}
+				
+				if (items.OTRSIndexURL) {
+					otrs.OTRSIndexURL = items.OTRSIndexURL;
+				}
+				
+				if (items.EnableOnBrowserStartup) {
+					enabled = items.EnableOnBrowserStartup;
+				}
+				
+				if (items.OTRSQueuesSelected) {
+					console.log("queues selected: ");
+					console.log(items.OTRSQueuesSelected);
+					otrs.queues_selected = items.OTRSQueuesSelected;
+				}
+				
+				if (items.OTRSHomeQueue) {
+					otrs.queues_selected.push(items.OTRSHomeQueue);
+				}
+				
+				OnSettingsLoaded();
+			});
 		});
 		started = 1;
 	}

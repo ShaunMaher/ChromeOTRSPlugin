@@ -43,9 +43,16 @@ function OnLoad() {
 		Cancel();
 	});
 	
+	// What OTRS client versions are available
+	var available_otrs_client_versions = chrome.extension.getBackgroundPage().available_otrs_client_versions
+	console.log(available_otrs_client_versions);
+	for (var version in available_otrs_client_versions) {
+		$("#OTRSVersion").append(new Option(available_otrs_client_versions[version], version));
+	}
+	
 	// Populate the list of queues in the home_queue select box and the area of checkboxes.
 	$("#other_queues").empty();
-	for (queue_id in queues_available) {
+	for (var queue_id in queues_available) {
 		$("#home_queue").append(new Option(ShortenQueueName(queues_available[queue_id]), queues_available[queue_id]));
 		
 		var new_html = "";
@@ -57,13 +64,12 @@ function OnLoad() {
 	}
 	
 	$("#select_states").empty();
-	for (state_id in states_available) {
+	for (var state_id in states_available) {
 		
 		var new_html = "";
 		new_html += "<div>";
 		new_html += "  <input type=checkbox id=\"select_state_" + state_id + "\"> " + states_available[state_id]
 		new_html += "</div>";
-		//console.log(new_html);
 		$("#select_states").append(new_html);
 	}
 	
@@ -127,12 +133,10 @@ function Save() {
 			console.log("Queue selected: " + queues_available[queue_id]);
 			queues_selected.push(queues_available[queue_id]);
 		}
-		
 	}
 	
-	console.log($("#home_queue").val());
-	
 	chrome.storage.sync.set({
+		OTRSVersion: $("#OTRSVersion").val(),
 		OTRSUserId: $("#OTRSUserId").val(),
 		OTRSSoapUsername: $("#OTRSSoapUsername").val(),
 		OTRSSoapPassword: $("#OTRSSoapPassword").val(),
@@ -142,7 +146,10 @@ function Save() {
 		home_queue: $("#home_queue").val(),
 		EnableOnBrowserStartup: EnableOnBrowserStartup
 	}, function() {
+		// Trigger a RefreshCache() so that any new queues selected have objects created and start caching
 		chrome.extension.getBackgroundPage().RefreshCache();
+		
+		// Go to the QueueView screen
 		location.href = 'QueueView.html';
 	});
 }

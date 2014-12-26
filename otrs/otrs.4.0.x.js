@@ -1,4 +1,29 @@
-function otrs_soap_client_300 () {
+/*
+   Copyright 2014 Shaun Maher <shaun@ghanima.net>
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+available_otrs_client_versions["400"] = "4.0.x";
+otrs_client_required_settings["400"] = {
+	OTRSRPCURL: "OTRS RPC URL",
+	OTRSIndexURL: "OTRS Index URL",
+	OTRSSoapUsername: "",
+	OTRSSoapPassword: "",
+	OTRSUserId: ""
+};
+
+function otrs_client_400 () {
 	this.throttle_factor = 500;
 	this.OTRSRPCURL = '';
 	this.OTRSIndexURL = '';

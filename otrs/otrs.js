@@ -14,6 +14,9 @@
    limitations under the License.
 */
 
+var available_otrs_client_versions = {};
+var otrs_client_required_settings = {};
+
 function otrs_ticket (ticket_id) {
 	this.ticket_id = ticket_id;
 	this.ticket_number = 0;

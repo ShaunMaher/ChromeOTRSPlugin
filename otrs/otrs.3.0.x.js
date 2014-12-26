@@ -14,7 +14,16 @@
    limitations under the License.
 */
 
-function otrs_soap_client_300 () {
+available_otrs_client_versions["300"] = "3.0.x";
+otrs_client_required_settings["300"] = {
+	OTRSRPCURL: "OTRS RPC URL",
+	OTRSIndexURL: "OTRS Index URL",
+	OTRSSoapUsername: "",
+	OTRSSoapPassword: "",
+	OTRSUserId: ""
+};
+
+function otrs_client_300 () {
 	this.throttle_factor = 500;
 	this.OTRSRPCURL = '';
 	this.OTRSIndexURL = '';
