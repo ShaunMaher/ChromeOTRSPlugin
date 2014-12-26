@@ -46,7 +46,7 @@ function OnLoad() {
 	// Populate the list of queues in the home_queue select box and the area of checkboxes.
 	$("#other_queues").empty();
 	for (queue_id in queues_available) {
-		$("#home_queue").append(new Option(ShortenQueueName(queues_available[queue_id], queue_id)));
+		$("#home_queue").append(new Option(ShortenQueueName(queues_available[queue_id]), queues_available[queue_id]));
 		
 		var new_html = "";
 		new_html += "<div>";
@@ -89,9 +89,24 @@ function OnLoad() {
 		if (items.OTRSIndexURL) {
 			$("#OTRSIndexURL").val(items.OTRSIndexURL);
 		}
+		
 		if (items.EnableOnBrowserStartup) {
 			if (items.EnableOnBrowserStartup > 0) {
 				$("#EnableOnBrowserStartup").attr( "checked", true);
+			}
+		}
+		
+		if (items.OTRSHomeQueue) {
+			// TODO
+		}
+		
+		if (items.OTRSQueuesSelected) {
+			console.log(items.OTRSQueuesSelected);
+			for (queue_id in queues_available) {
+				console.log("Checking OTRSQueuesSelected for " + queues_available[queue_id]);
+				if (items.OTRSQueuesSelected.indexOf(queues_available[queue_id]) != -1) {
+					$("#select_queue_" + queue_id).attr( "checked", true);
+				}
 			}
 		}
 	});
@@ -112,7 +127,10 @@ function Save() {
 			console.log("Queue selected: " + queues_available[queue_id]);
 			queues_selected.push(queues_available[queue_id]);
 		}
+		
 	}
+	
+	console.log($("#home_queue").val());
 	
 	chrome.storage.sync.set({
 		OTRSUserId: $("#OTRSUserId").val(),
@@ -121,8 +139,10 @@ function Save() {
 		OTRSRPCURL: $("#OTRSRPCURL").val(),
 		OTRSIndexURL: $("#OTRSIndexURL").val(),
 		OTRSQueuesSelected: queues_selected,
+		home_queue: $("#home_queue").val(),
 		EnableOnBrowserStartup: EnableOnBrowserStartup
 	}, function() {
+		chrome.extension.getBackgroundPage().RefreshCache();
 		location.href = 'QueueView.html';
 	});
 }

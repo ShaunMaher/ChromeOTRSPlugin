@@ -91,6 +91,11 @@ function OnLoad() {
 		
 		// Populate the ticket list with tickets from the user's selected "Home Queue"
 		if (items.home_queue) {
+			// The home queue sould be considered to be a one of the selected queues.
+			if (selected_queues.indexOf(items.home_queue) < 1) {
+				selected_queues.push(items.home_queue);
+			}
+			
 			home_queue_name = items.home_queue;
 			console.log("chrome.storage.sync.get(home_queue): " + home_queue_name);
 			show_queue(home_queue_name);

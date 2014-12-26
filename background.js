@@ -117,6 +117,11 @@ function StartExtension() {
 				console.log(items.OTRSQueuesSelected);
 				otrs.queues_selected = items.OTRSQueuesSelected;
 			}
+			
+			if (items.OTRSHomeQueue) {
+				otrs.queues_selected.push(items.OTRSHomeQueue);
+			}
+			
 			OnSettingsLoaded();
 		});
 		started = 1;
