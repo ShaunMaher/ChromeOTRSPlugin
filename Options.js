@@ -14,6 +14,9 @@
    limitations under the License.
 */
 
+var queues_available = {};
+var states_available = {};
+
 function ShortenQueueName(name) {
 	if (name.length > 30) {
 		new_name = name.substring(0,14) + " ... " + name.substring((name.length - 14));
@@ -49,7 +52,7 @@ function OnLoad() {
 		new_html += "<div>";
 		new_html += "  <input type=checkbox id=\"select_queue_" + queue_id + "\"> " + ShortenQueueName(queues_available[queue_id])
 		new_html += "</div>";
-		//console.log(new_html);
+		console.log(new_html);
 		$("#other_queues").append(new_html);
 	}
 	
@@ -58,7 +61,7 @@ function OnLoad() {
 		
 		var new_html = "";
 		new_html += "<div>";
-		new_html += "  <input type=checkbox id=\"select_queue_" + state_id + "\"> " + states_available[state_id]
+		new_html += "  <input type=checkbox id=\"select_state_" + state_id + "\"> " + states_available[state_id]
 		new_html += "</div>";
 		//console.log(new_html);
 		$("#select_states").append(new_html);
@@ -96,9 +99,19 @@ function OnLoad() {
 
 function Save() {
 	
+	// Convert the state of the EnableOnBrowserStartup checkbox into an integer
 	var EnableOnBrowserStartup = 0;
 	if ($("#EnableOnBrowserStartup").prop( "checked" )) {
 		EnableOnBrowserStartup = 1;
+	}
+	
+	// Add queues that are selected to an array
+	var queues_selected = [];
+	for (queue_id in queues_available) {
+		if ($("#select_queue_" + queue_id).prop("checked")) {
+			console.log("Queue selected: " + queues_available[queue_id]);
+			queues_selected.push(queues_available[queue_id]);
+		}
 	}
 	
 	chrome.storage.sync.set({
@@ -107,6 +120,7 @@ function Save() {
 		OTRSSoapPassword: $("#OTRSSoapPassword").val(),
 		OTRSRPCURL: $("#OTRSRPCURL").val(),
 		OTRSIndexURL: $("#OTRSIndexURL").val(),
+		OTRSQueuesSelected: queues_selected,
 		EnableOnBrowserStartup: EnableOnBrowserStartup
 	}, function() {
 		location.href = 'QueueView.html';

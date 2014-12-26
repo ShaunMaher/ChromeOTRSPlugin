@@ -29,7 +29,7 @@ var default_config = {
 	'OTRSIndexURL': "http://servicedesk.your.domain/otrs/index.pl",
 	'EnableOnBrowserStartup': 0,
 	'home_queue': "_my_tickets_",
-	'selected_queues': ["_my_tickets_", "Triage", "Delivery::Service Desk"]
+	'OTRSQueuesSelected': ["_my_tickets_"]
 }
 
 function browser_action_anim_start() {
@@ -110,6 +110,12 @@ function StartExtension() {
 			
 			if (items.EnableOnBrowserStartup) {
 				enabled = items.EnableOnBrowserStartup;
+			}
+			
+			if (items.OTRSQueuesSelected) {
+				console.log("queues selected: ");
+				console.log(items.OTRSQueuesSelected);
+				otrs.queues_selected = items.OTRSQueuesSelected;
 			}
 			OnSettingsLoaded();
 		});

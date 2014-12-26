@@ -1,3 +1,19 @@
+/*
+   Copyright 2014 Shaun Maher <shaun@ghanima.net>
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
 var show_queue_timeout = '';
 var home_queue_name = '';
 var OTRSIndexURL = '';
@@ -69,8 +85,8 @@ function OnLoad() {
 		}
 		
 		// Remember which queues the user has selected
-		if (items.selected_queues) {
-			selected_queues = items.selected_queues;
+		if (items.OTRSQueuesSelected) {
+			selected_queues = items.OTRSQueuesSelected;
 		}
 		
 		// Populate the ticket list with tickets from the user's selected "Home Queue"
