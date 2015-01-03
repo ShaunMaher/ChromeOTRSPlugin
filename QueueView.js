@@ -143,6 +143,7 @@ function list_queues(current_queue_name) {
 		});
 		index++
 	}
+	console.log("QueueView.js:list_queues(" + current_queue_name + "): Added onclick handlers to " + index + " objects.")
 }
 
 function list_tickets(tickets) {
@@ -175,11 +176,15 @@ function list_tickets(tickets) {
 	$(".ticket_link").click(function(event) {
 		console.log(event);
 		if (event.currentTarget.attributes['href']) {
-			// When a ticket_link span is clicked, optn the ticket in a new tab.  We use a setTimeout
+			// When a ticket_link span is clicked, open the ticket in a new tab.  We use a setTimeout
 			// here so this event's processing can complete and the new tab is created asynchronously
+			console.log("QueueView.js:ticket_link.onclick(): ticket_link object clicked.");
 			setTimeout(function(event) {
 				chrome.tabs.create({ url: event.currentTarget.attributes['href'].value });
-			}, 100, event);
+			}, 3000, event);
+		}
+		else {
+			console.log("QueueView.js:list_tickets(tickets): Strangely, there is a ticket_link object that has no 'href'.")
 		}
 	});
 }
